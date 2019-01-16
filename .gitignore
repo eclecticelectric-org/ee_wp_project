@@ -1,0 +1,67 @@
+# --------------------
+# WordPress skeleton
+# Default site .gitignore
+# --------------------
+
+# ignore temporary files
+~*
+*.log
+
+# ignore any db dumps
+*.sql
+
+# ignore packaged files
+*.zip
+*.gz
+
+# -------------------
+# and now WordPress
+#
+# Project directory structure
+# / (project root)
+#  + .gitignore
+#  +- .git /
+#  + composer.json
+#  + composer.lock
+#  + local-config.php OR production-config.php
+#  +- public /
+#    + index.php
+#    +- wp /
+#    + wp-config.php
+#    +- wp-content /
+#      +- themes /
+#      +- plugins /
+#  +- vendor /
+# -------------------
+
+# Composer vendor packages
+/vendor/*
+# WordPress core managed by Composer
+/public/wp/*
+# but store .htaccess in WordPress root
+!/public/wp/.htaccess
+
+# THEMES
+# ignore all themes
+/public/wp-content/themes/*
+# but don't ignore proprietary themes; include in repo
+# !/public/wp-content/themes/Divi
+
+# PLUGINS
+# ignore all plugins
+/public/wp-content/plugins/*
+# but don't ignore proprietary plugins; store in repo
+# !/public/wp-content/plugins/<replace_with_backup_plugin_name>
+
+# BACKUPS
+# ignore backup files stored on webserver
+# /public/wp-content/<replace_with_backup_directory>/*
+
+# CONFIG
+# ignore config files which store db config
+production-config.php
+local-config.php
+# ignore hash salts
+salts.inc
+
+# ----- end of .gitignore -----
