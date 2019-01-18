@@ -113,7 +113,11 @@ define('DB_PASSWORD', 'DATABASE_PASSWORD');
 ```
 2. Create a DNS record for the project domain (in our examples we used **spacelaunch.com**) and assign to it the value of the host server's public IP address.
 
-Now it's time to reload the web server configuration and give it a go!
+3. Enable the new website in Apache
+
+    $ sudo a2ensite spacelaunch.com
+
+4. Reload the web server configuration and give it a go!
 
     $ sudo service apache2 reload     # Ubuntu 16.04 LTS
     $ sudo systemctl restart apache2  # Ubuntu 18.04 LTS
