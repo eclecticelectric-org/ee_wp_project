@@ -4,6 +4,11 @@
  * Local wp-config file
  */
 
+/* WP-CLI needs HTTP_HOST definition */
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+    $_SERVER['HTTP_HOST'] = 'host.local';
+}
+
 /**
  * WordPress debugging mode.
  *
@@ -44,10 +49,6 @@ define('DB_PASSWORD', 'DATABASE_PASSWORD');
 /* MySQL hostname */
 define('DB_HOST', 'localhost');
 
-/* WP-CLI needs HTTP_HOST definition */
-if ( defined( 'WP_CLI' ) && WP_CLI ) {
-    $_SERVER['HTTP_HOST'] = 'host.local';
-}
 
 /**#@+
  * Authentication Unique Keys and Salts.
