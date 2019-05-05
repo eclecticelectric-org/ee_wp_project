@@ -18,7 +18,7 @@
  * @package WordPress
  */
 
-ini_set('display_errors', 0);
+ini_set('display_errors', 'off');
 
 // ===================================================
 // Load database info and local development parameters
@@ -33,10 +33,13 @@ if (file_exists( dirname( __FILE__ ) . '/../production-config.php' ) ) {
 
 /* ========================
  * Custom Content Directory
- * Must set WP_CONTENT_URL in local/production config
+ * Modify WP_CONTENT_URL in local/production config
  * ========================
  */
 define( 'WP_CONTENT_DIR', dirname( __FILE__ ) . '/wp-content' );
+if (!defined('WP_CONTENT_URL')) {
+    define( 'WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/wp-content' );
+}
 
 /*
  * DATABASE configuration

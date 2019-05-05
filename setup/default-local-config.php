@@ -21,8 +21,15 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
  *
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
+ini_set('display_errors', 'on');
 define('WP_DEBUG_DISPLAY', true);
 define('WP_DEBUG', true);
+define('WP_DEBUG_LOG', dirname(__FILE__) . '/logs/debug.log');
+
+/* WP-CLI needs HTTP_HOST defined */
+if (defined('WP_CLI') && WP_CLI) {
+    $_SERVER['HTTP_HOST'] = 'host.local';
+}
 
 /* ========================
  * Custom Content Directory URL

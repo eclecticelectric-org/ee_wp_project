@@ -48,7 +48,7 @@ USER_GROUP=$(id -gn)
 # Set defaults and then process arguments
 # -----------------
 
-# default project name/director is repo name
+# default project name/directory is repo name
 PROJECT=ee_wp_project
 
 #---
@@ -166,6 +166,9 @@ sed -e "s/SPACELAUNCH.COM/$PROJECT_DOMAIN/" apache/public_htaccess > public/.hta
 
 # create uploads directory
 mkdir public/wp-content/uploads
+
+# create logs directory
+mkdir logs
 
 #---
 # save a patched virtual host config

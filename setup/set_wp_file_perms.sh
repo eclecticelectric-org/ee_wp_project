@@ -59,6 +59,9 @@ set_wp_project_perms () {
     chown -R $4 $1/public/wp-content/uploads
     # provide web server access to config files
     chgrp $5 $1/local-config.php $1/salts.inc
+    # let web server write to logs directory
+    chgrp $5 $1/logs
+    chmod 770 $1/logs
 }
 
 set_wp_project_perms "$1" "$2" "$3" "$4" "$5"
