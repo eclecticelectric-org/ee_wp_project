@@ -23,7 +23,7 @@
 # Requirements:
 # -------------
 # + Ubuntu 16.04 LTS+ compatible Linux
-# + LAMP stack with Apache 2.4+ that meets WordPress 4.8+ requirements
+# + LAMP/LEMP stack with Apache 2.4+ that meets WordPress 5.0 requirements
 # + git installed and accessible with the 'git' command
 # + composer installed and accessible using the 'composer' command
 #
@@ -38,46 +38,7 @@
 # useful script related variables
 #---
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-SCRIPT_NAME=`basename "$0"`
-
-# current user primary group
-USER_GROUP=$(id -gn)
-
-# -----------------
-# parameters
-# Set defaults and then process arguments
-# -----------------
-
-# default project name/directory is repo name
-PROJECT=ee_wp_project
-
-#---
-# web server process user/group
-#
-# The web server requires write permissions to the
-# wp-content/uploads directory. Specify the user and group
-# under which the web server runs. If this script is not run as 'root'
-# and the current user/group differs from the web server process user
-# then 'sudo' will run so the correct permissions can be set on the
-# uploads directory
-#
-# defaults: www-data
-#---
-WS_USER=www-data
-WS_GROUP=www-data
-
-# web server basedir - default to the current directory
-WS_ROOT=$(pwd)
-
-# file system user/group - default to current user
-FS_USER=$USER
-FS_GROUP=$USER_GROUP
-
-#---
-# Web server virtual host config directory
-# default: /etc/apache2/sites-available
-#---
-WS_VIRTUALHOST_DIR=/etc/apache2/sites-available
+SCRIPT_NAME=$(basename "$0")
 
 #---
 # process args
@@ -141,19 +102,12 @@ cd $WS_BASEDIR
 # install all packages, including WordPress core
 composer install
 
-# create the default .htaccess in the wordpress core directory
-cp apache/wp_htaccess_default public/wp/.htaccess
-
-# move the default wp-content directory outside the web docroot
-mv public/wp/wp-content public/
-
 # create the WordPress salts
 ./setup/wp_local_config.sh
 
 #---
-# create the local configuration file for WordPress if none there
+# create the local configuration file for WordPress if none exists
 #---
-
 if [ ! -e local-config.php ]; then
     # establish the default local-config.php file for local configuration
     cp setup/default-local-config.php local-config.php
@@ -161,21 +115,14 @@ if [ ! -e local-config.php ]; then
     printf "\ndefine('WP_SITEURL', 'http://%s');\ndefine('WP_HOME', 'http://%s');\n" "$PROJECT_DOMAIN" "$PROJECT_DOMAIN" >> local-config.php
 fi
 
-# create the web root .htaccess file with the project domain
-sed -e "s/SPACELAUNCH.COM/$PROJECT_DOMAIN/" apache/public_htaccess > public/.htaccess
-
 # create uploads directory
 mkdir public/wp-content/uploads
 
+# move the default WordPress wp-content directory outside the web docroot
+mv public/wp/wp-content public/
+
 # create logs directory
 mkdir logs
-
-#---
-# save a patched virtual host config
-#---
-CONF_INFILE=$WS_BASEDIR/apache/example.conf
-CONF_OUTFILE=$WS_BASEDIR/apache/$PROJECT_DOMAIN.conf
-sed -e "s|PROJECT_DOMAIN|$PROJECT_DOMAIN|; s|DOCUMENT_ROOT|$WS_BASEDIR/public|" $CONF_INFILE >$CONF_OUTFILE
 
 #---
 # set directory and file permissions
@@ -184,10 +131,9 @@ echo "Using sudo to make ownership and permission changes required by web server
 sudo $SCRIPT_DIR/set_wp_file_perms.sh "$WS_BASEDIR" "$FS_USER" "$FS_GROUP" "$WS_USER" "$WS_GROUP"
 
 #---
-# interactive copy of virtual host config file to web server config directory
-# ---
-echo "Grant permissions to save virtual host file $CONF_OUTFILE to configuration directory $WS_VIRTUALHOST_DIR?"
-sudo cp -i $CONF_OUTFILE $WS_VIRTUALHOST_DIR/$PROJECT_DOMAIN.conf
+# configure the web server virtual host
+#---
+source ./setup/config-virtual-host.sh
 
 #---
 # remove the .git directory from the project clone unless keep option provided
