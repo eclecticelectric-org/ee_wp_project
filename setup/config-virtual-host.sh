@@ -23,6 +23,7 @@ setup_virtual_host () {
 
     case "$WS_SOFTWARE" in
         apache)
+            echo "... configure apache ..."
             # create the web root .htaccess file with the project domain
             sed -e "s/SPACELAUNCH.COM/$PROJECT_DOMAIN/" apache/public_htaccess > public/.htaccess
             # create the default .htaccess in the wordpress core directory
@@ -30,7 +31,7 @@ setup_virtual_host () {
             ;;
 
         nginx)
-            echo ... configure nginx ...
+            echo "... configure nginx ..."
             ;;
 
         *)
@@ -45,12 +46,14 @@ setup_virtual_host () {
     CONF_INFILE=$WS_BASEDIR/$WS_SOFTWARE/example.conf
     CONF_OUTFILE=$WS_BASEDIR/$WS_SOFTWARE/$PROJECT_DOMAIN.conf
     sed -e "s|PROJECT_DOMAIN|$PROJECT_DOMAIN|; s|DOCUMENT_ROOT|$WS_BASEDIR/public|" $CONF_INFILE >$CONF_OUTFILE
+    echo "wrote patched virtual host config to $CONF_OUTFILE"
 
     #---
     # interactive copy of virtual host config file to web server config directory
     # ---
     echo "Grant permissions to save virtual host file $CONF_OUTFILE to configuration directory $WS_VIRTUALHOST_DIR?"
     echo sudo cp -i $CONF_OUTFILE $WS_VIRTUALHOST_DIR/$PROJECT_DOMAIN.conf
+    echo "copied patched virtual host config to $CONF_OUTFILE to $WS_VIRTUALHOST_DIR/$PROJECT_DOPMAIN.conf"
 
 }
 

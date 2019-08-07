@@ -115,11 +115,11 @@ if [ ! -e local-config.php ]; then
     printf "\ndefine('WP_SITEURL', 'http://%s');\ndefine('WP_HOME', 'http://%s');\n" "$PROJECT_DOMAIN" "$PROJECT_DOMAIN" >> local-config.php
 fi
 
-# create uploads directory
-mkdir public/wp-content/uploads
-
 # move the default WordPress wp-content directory outside the web docroot
 mv public/wp/wp-content public/
+
+# create uploads directory
+mkdir public/wp-content/uploads
 
 # create logs directory
 mkdir logs
@@ -134,6 +134,7 @@ sudo $SCRIPT_DIR/set_wp_file_perms.sh "$WS_BASEDIR" "$FS_USER" "$FS_GROUP" "$WS_
 # configure the web server virtual host
 #---
 source ./setup/config-virtual-host.sh
+setup_virtual_host
 
 #---
 # remove the .git directory from the project clone unless keep option provided
