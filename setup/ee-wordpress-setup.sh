@@ -22,17 +22,16 @@
 # -------------
 # Requirements:
 # -------------
-# + Ubuntu 16.04 LTS+ compatible Linux
-# + LAMP/LEMP stack with Apache 2.4+ that meets WordPress 5.0 requirements
-# + git installed and accessible with the 'git' command
-# + composer installed and accessible using the 'composer' command
+# + Ubuntu 18.04 LTS+ compatible Linux
+# + LAMP/LEMP stack with PHP 7.2+, Apache 2.4+/nginx 1.14+, MySQL 5.7+
+# + git 2.17+
+# + composer 1.9+ accessible using the 'composer' command
 #
 # How to use this script:
 # 1. Clone the project repository to access this setup file
 #       git clone https://github.com/eclecticelectric-org/ee_wp_project PROJECT
 # 2. Run the script PROJECT/setup/ee-wp-project.sh for additional instructions
 #
-
 
 #---
 # useful script related variables

@@ -79,6 +79,7 @@ Options:
   -w, --web-user USER           web server process user (www-data)
   -b, --web-group GROUP         web server process user group (www-data)
   -r, --web-root DIRECTORY      parent filesystem directory for project
+  -s, --web-server              config virtual host: [apache|nginx] (apache)
   -u, --user USER               user owner of project files
   -g, --group GROUP             group owner of project files
   -c, --host-config DIRECTORY   host config directory (/etc/apache2/sites-available)

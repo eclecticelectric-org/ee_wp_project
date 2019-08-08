@@ -20,7 +20,7 @@ usage () {
     echo "  -w, --web-user USER           web server process user (www-data)"
     echo "  -b, --web-group GROUP         web server process user group (www-data)"
     echo "  -r, --web-root DIRECTORY      parent filesystem directory for project"
-    echo "  -s, --web-server              config virtual host: apache or nginx (apache)"
+    echo "  -s, --web-server              config virtual host: [apache|nginx] (apache)"
     echo "  -u, --user USER               user owner of project files"
     echo "  -g, --group GROUP             group owner of project files"
     echo "  -c, --host-config DIRECTORY   host config directory (/etc/apache2/sites-available)"
@@ -121,15 +121,15 @@ if [ -z "$PROJECT" ]; then
     PROJECT=$PROJECT_DOMAIN
 fi
 
-echo "PROJECT=$PROJECT"
-echo "PROJECT_DOMAIN=$PROJECT_DOMAIN"
-echo "FS_USER=$FS_USER"
-echo "FS_GROUP=$FS_GROUP"
-echo "WS_USER=$WS_USER"
-echo "WS_GROUP=$WS_GROUP"
-echo "WS_ROOT=$WS_ROOT"
-echo "WS_SOFTWARE=$WS_SOFTWARE"
-echo "HELP=$SHOW_HELP"
-echo "ERROR=$ARG_ERROR"
+# echo "PROJECT=$PROJECT"
+# echo "PROJECT_DOMAIN=$PROJECT_DOMAIN"
+# echo "FS_USER=$FS_USER"
+# echo "FS_GROUP=$FS_GROUP"
+# echo "WS_USER=$WS_USER"
+# echo "WS_GROUP=$WS_GROUP"
+# echo "WS_ROOT=$WS_ROOT"
+# echo "WS_SOFTWARE=$WS_SOFTWARE"
+# echo "HELP=$SHOW_HELP"
+# echo "ERROR=$ARG_ERROR"
 
 # ----- end of parse_args.sh -----
