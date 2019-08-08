@@ -1,6 +1,6 @@
 {
-    "name": "WordPress Skeleton Site",
-    "description": "WordPress skeleton site",
+    "name": "eclectic-electric/wordpress-site",
+    "description": "Eclect Electric WordPress site",
     "repositories": [
         {
             "type": "composer",
