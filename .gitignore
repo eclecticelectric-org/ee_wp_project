@@ -1,5 +1,6 @@
 # --------------------
-# WordPress skeleton
+# Eclectic Electric
+# WordPress template
 # Default site .gitignore
 # --------------------
 
@@ -56,6 +57,9 @@
 # but don't ignore proprietary plugins; store in repo
 # !/public/wp-content/plugins/<replace_with_backup_plugin_name>
 
+# UPLOADS
+/public/wp-content/uploads/*
+
 # BACKUPS
 # ignore backup files stored on webserver
 # /public/wp-content/<replace_with_backup_directory>/*
@@ -66,5 +70,10 @@ production-config.php
 local-config.php
 # ignore hash salts
 salts.inc
+
+# CACHE
+# add any cache directories
+# wp-super-cache plugin cache
+/public/wp-content/cache/*
 
 # ----- end of .gitignore -----
