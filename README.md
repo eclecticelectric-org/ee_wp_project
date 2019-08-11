@@ -115,13 +115,17 @@ define('DB_PASSWORD', 'DATABASE_PASSWORD');
 ```
 2. Create a DNS record for the project domain (in our examples we used **spacelaunch.com**) and assign to it the value of the host server's public IP address.
 
-3. Enable the new website in Apache
+3. Enable the new website in Apache or nginx
 ```
     $ sudo a2ensite spacelaunch.com
+    - or -
+    $ sudo ln -s /etc/nginx/sites-available/spacelaunch.com.conf /etc/nginx/sites-enabled/spacelaunch
 ```
 4. Reload the web server configuration and give it a go!
 ```
-    $ sudo systemctl restart apache2  # Ubuntu 18.04 LTS
+    $ sudo systemctl restart apache2
+    - or -
+    $ sudo systemctl restart nginx
 ```
 Visit your project URL \(http://spacelaunch.com for our example\) and you should see the familiar WordPress installation screen.
 
