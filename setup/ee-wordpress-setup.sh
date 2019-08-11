@@ -140,6 +140,10 @@ setup_virtual_host
 #---
 if [ -z "$KEEP_GIT" ]; then
     rm -fr $WS_BASEDIR/.git
+else
+    # keep the git working space but remove the project remote so git push won't
+    # send changes back to the remote repo. User must config a remote.
+    git remote rm origin
 fi
 
 echo "Done."

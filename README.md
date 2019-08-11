@@ -24,9 +24,9 @@ This guide is for a *new* project installation in a cloud hosting environment wh
 Eclectic's WordPress project template has the following software requirements:
 
 *Requirements*
-* Linux Ubuntu 16.04 LTS or later
-* Apache 2.4 or later web server
-* [WordPress LAMP stack](https://wordpress.org/about/requirements/)
+* Linux Ubuntu 18.04 LTS or later
+* Apache 2.4+ or nginx 1.9+ web server
+* [WordPress LAMP or LEMP stack](https://wordpress.org/about/requirements/)
 * Git
 * [Composer](https://getcomposer.org/)
 * `sudo` access
@@ -89,6 +89,7 @@ Examples:
    ee-wordpress-setup.sh -p spacelaunch.com
    ee-wordpress-setup.sh -p spacelaunch -d spacelaunch.com
    ee-wordpress-setup.sh -p spacelaunch -d spacelaunch.com -u webdev -g webdev
+   ee-wordpress-setup.sh -p spacelaunch -d spacelaunch.com -s nginx
 ```
 > *Provide your \'sudo\' credentials if prompted. The default configuration sets permissions that allow WordPress to create and edit files in the `wp-content/uploads` directory.*
 
@@ -120,7 +121,6 @@ define('DB_PASSWORD', 'DATABASE_PASSWORD');
 ```
 4. Reload the web server configuration and give it a go!
 ```
-    $ sudo service apache2 reload     # Ubuntu 16.04 LTS
     $ sudo systemctl restart apache2  # Ubuntu 18.04 LTS
 ```
 Visit your project URL \(http://spacelaunch.com for our example\) and you should see the familiar WordPress installation screen.
@@ -128,6 +128,7 @@ Visit your project URL \(http://spacelaunch.com for our example\) and you should
 #### Additional Notes
 
 * After a WordPress core update using *Composer*, copy `/apache/wp_htaccess_default` to `/public/wp/.htaccess` (This will be handled automatically in the future)
+* Use of the -k (keep .git workspace) option removes the definition of 'origin' which must be defined prior to pusing to a new repository
 
 ## Advanced WordPress Project Layout
 
@@ -147,6 +148,8 @@ Visit your project URL \(http://spacelaunch.com for our example\) and you should
   * apache / *(Apache sample files)*
     * `example.conf` *(copy to Apache virtual host directory)*
     * `wp_htaccess_default` *(copy to `/public/wp/.htaccess`)*
+  * nginx / *(nginx sample file)*
+    * `example.conf` *(copy to nginx virtual host directory)*
   * setup / (setup scripts)
     * `wp_local_config.sh` *(support script)*
     * `ee-wordpress-setup.sh` *(main setup script)*
@@ -176,6 +179,8 @@ Thanks to the following sites which provided inspiration and information!
 [Moving WordPress](https://codex.wordpress.org/Moving_WordPress)
 
 [Keeping WordPress Under Version Control with Git](https://stevegrunwell.com/blog/keeping-wordpress-under-version-control-with-git/)
+
+[nginx WordPress Recipe](https://www.nginx.com/resources/wiki/start/topics/recipes/wordpress/)
 
 *WordPress is a registered trademark of Automattic Inc.*
 
