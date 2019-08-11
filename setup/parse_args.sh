@@ -30,6 +30,7 @@ usage () {
     echo "    $1 --project-domain spacelaunch.com"
     echo "    $1 --project spacelaunch --project-domain spacelaunch.com"
     echo "    $1 --project spacelaunch --project-domain spacelaunch.com --user webdev --group webdev"
+    echo "    $1 --project spacelaunch --project-domain spacelaunch.com --web-server nginx"
     exit 1
 }
 
