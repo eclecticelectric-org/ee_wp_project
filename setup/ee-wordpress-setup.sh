@@ -111,7 +111,7 @@ if [ ! -e local-config.php ]; then
     # establish the default local-config.php file for local configuration
     cp setup/default-local-config.php local-config.php
     # add WordPress 'siteurl' and 'home' to the local configuration
-    printf "\ndefine('WP_SITEURL', 'http://%s');\ndefine('WP_HOME', 'http://%s');\n" "$PROJECT_DOMAIN" "$PROJECT_DOMAIN" >> local-config.php
+    printf "\ndefine('WP_SITEURL', \$http_request_scheme . '://%s');\ndefine('WP_HOME', \$http_request_scheme . '://%s');\n" "$PROJECT_DOMAIN" "$PROJECT_DOMAIN" >> local-config.php
 fi
 
 # move the default WordPress wp-content directory outside the web docroot

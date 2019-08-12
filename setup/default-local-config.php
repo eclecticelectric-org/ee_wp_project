@@ -33,12 +33,14 @@ if (defined('WP_CLI') && WP_CLI) {
 
 /* ========================
  * Custom Content Directory URL
- * !update for https!
  * ========================
  */
-define( 'WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/wp-content' );
-// HTTPS version
-// define( 'WP_CONTENT_URL', 'https://' . $_SERVER['HTTP_HOST'] . '/wp-content' );
+$http_request_scheme = 'http';
+if ((isset($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) === 'on')) ||
+    (isset($_SERVER['REQUEST_SCHEME']) && (strtolower($_SERVER['REQUEST_SCHEME']) === 'https'))) {
+    $http_request_scheme = 'https';
+}
+define( 'WP_CONTENT_URL', $http_request_scheme . '://' . $_SERVER['HTTP_HOST'] . '/wp-content' );
 
 /*
  *  DATABASE (MySQL) CONFIGURATION
