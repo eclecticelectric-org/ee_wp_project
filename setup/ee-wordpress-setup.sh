@@ -60,6 +60,8 @@ fi
 
 # full filesystem path to the project directory
 WS_BASEDIR=$WS_ROOT/$PROJECT
+# location of configuration files used by this script
+CONFIG_DIR=$WS_BASEDIR/config
 
 # ensure project directory exists
 if [ ! -d "$WS_BASEDIR" ]; then

@@ -25,9 +25,9 @@ setup_virtual_host () {
         apache)
             echo "... configure apache virtual host ..."
             # create the web root .htaccess file with the project domain
-            sed -e "s/SPACELAUNCH.COM/$PROJECT_DOMAIN/" apache/public_htaccess > public/.htaccess
+            sed -e "s/SPACELAUNCH.COM/$PROJECT_DOMAIN/" "${CONFIG_DIR}/apache/public_htaccess" > public/.htaccess
             # create the default .htaccess in the wordpress core directory
-            cp apache/wp_htaccess_default public/wp/.htaccess
+            cp "${CONFIG_DIR}/apache/wp_htaccess_default" public/wp/.htaccess
             ;;
 
         nginx)
@@ -43,17 +43,17 @@ setup_virtual_host () {
     #---
     # save a patched virtual host config
     #---
-    CONF_INFILE=$WS_BASEDIR/$WS_SOFTWARE/example.conf
-    CONF_OUTFILE=$WS_BASEDIR/$WS_SOFTWARE/$PROJECT_DOMAIN.conf
-    sed -e "s|PROJECT_DOMAIN|$PROJECT_DOMAIN|; s|DOCUMENT_ROOT|$WS_BASEDIR/public|" $CONF_INFILE >$CONF_OUTFILE
-    echo "patched virtual host config written to $CONF_OUTFILE"
+    CONF_INFILE=$CONFIG_DIR/$WS_SOFTWARE/example.conf
+    CONF_OUTFILE=$CONFIG_DIR/$WS_SOFTWARE/$PROJECT_DOMAIN.conf
+    sed -e "s|PROJECT_DOMAIN|$PROJECT_DOMAIN|; s|DOCUMENT_ROOT|$WS_BASEDIR/public|" "$CONF_INFILE" >"$CONF_OUTFILE"
+    echo "..patched virtual host config written to $CONF_OUTFILE"
 
     #---
     # interactive copy of virtual host config file to web server config directory
     # ---
-    echo "Grant permissions to save virtual host file $CONF_OUTFILE to configuration directory $WS_VIRTUALHOST_DIR?"
+    echo "Grant permissions to save virtual host file $CONF_OUTFILE to configuration directory ${WS_VIRTUALHOST_DIR}?"
     sudo cp -i $CONF_OUTFILE $WS_VIRTUALHOST_DIR/$PROJECT_DOMAIN.conf
-    echo "patched virtual host config $CONF_OUTFILE written to $WS_VIRTUALHOST_DIR/$PROJECT_DOPMAIN.conf"
+    echo "..patched virtual host config $CONF_OUTFILE written to $WS_VIRTUALHOST_DIR/$PROJECT_DOMAIN.conf"
 
 }
 
