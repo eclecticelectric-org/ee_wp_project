@@ -46,14 +46,23 @@ setup_virtual_host () {
     CONF_INFILE=$CONFIG_DIR/$WS_SOFTWARE/example.conf
     CONF_OUTFILE=$CONFIG_DIR/$WS_SOFTWARE/$PROJECT_DOMAIN.conf
     sed -e "s|PROJECT_DOMAIN|$PROJECT_DOMAIN|; s|DOCUMENT_ROOT|$WS_BASEDIR/public|" "$CONF_INFILE" >"$CONF_OUTFILE"
-    echo "..patched virtual host config written to $CONF_OUTFILE"
+    if [ ! $? -eq 0 ]; then
+        echo "Error saving a copy of virtual host configuration file:$CONF_OUTFILE"
+    else
+        echo "..patched virtual host config written to $CONF_OUTFILE"
+    fi
 
     #---
     # interactive copy of virtual host config file to web server config directory
     # ---
     echo "Grant permissions to save virtual host file $CONF_OUTFILE to configuration directory ${WS_VIRTUALHOST_DIR}?"
-    sudo cp -i $CONF_OUTFILE $WS_VIRTUALHOST_DIR/$PROJECT_DOMAIN.conf
-    echo "..patched virtual host config $CONF_OUTFILE written to $WS_VIRTUALHOST_DIR/$PROJECT_DOMAIN.conf"
+    VHOST_FILENAME="$WS_VIRTUALHOST_DIR/$PROJECT_DOMAIN.conf"
+    sudo cp -i $CONF_OUTFILE "$VHOST_FILENAME"
+    if [ ! $? -eq 0 ]; then
+        echo "Error writing new virtual host configuration file:$VHOST_FILENAME"
+    else
+        echo "..patched virtual host config $CONF_OUTFILE written to $VHOST_FILENAME"
+    fi
 
 }
 
