@@ -131,7 +131,7 @@ Visit your project URL \(http://spacelaunch.com for our example\) and you should
 
 #### Additional Notes
 
-* After a WordPress core update using *Composer*, copy `/apache/wp_htaccess_default` to `/public/wp/.htaccess` (This will be handled automatically in the future)
+* If Apache is the configured webserver, after a WordPress core update using *Composer*, copy `/apache/wp_htaccess_default` to `/public/wp/.htaccess` (This will be handled automatically in the future)
 * Use of the -k (keep .git workspace) option removes the definition of 'origin' which must be defined prior to pusing to a new repository
 
 ## Advanced WordPress Project Layout
@@ -140,6 +140,13 @@ Visit your project URL \(http://spacelaunch.com for our example\) and you should
   * composer.json
   * composer.lock *(maintained by Composer)*
   * local-config.php *(or production-config.php)*
+  * salts.inc
+  * config /
+    * apache / *(Apache sample files)*
+      * `example.conf` *(copy to Apache virtual host directory)*
+      * `wp_htaccess_default` *(copy to `/public/wp/.htaccess`)*
+    * nginx / *(nginx sample file)*
+      * `example.conf` *(copy to nginx virtual host directory)*
   * public / (web server docroot)
     * index.php
     * wp / *(WordPress core)*
@@ -149,11 +156,6 @@ Visit your project URL \(http://spacelaunch.com for our example\) and you should
       * themes /
       * plugins /
   * vendor / *(maintained by Composer)*
-  * apache / *(Apache sample files)*
-    * `example.conf` *(copy to Apache virtual host directory)*
-    * `wp_htaccess_default` *(copy to `/public/wp/.htaccess`)*
-  * nginx / *(nginx sample file)*
-    * `example.conf` *(copy to nginx virtual host directory)*
   * setup / (setup scripts)
     * `wp_local_config.sh` *(support script)*
     * `ee-wordpress-setup.sh` *(main setup script)*

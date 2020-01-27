@@ -28,7 +28,7 @@ define('WP_DEBUG_LOG', dirname(__FILE__) . '/logs/debug.log');
 
 /* WP-CLI needs HTTP_HOST defined */
 if (defined('WP_CLI') && WP_CLI) {
-    $_SERVER['HTTP_HOST'] = 'host.local';
+    $_SERVER['HTTP_HOST'] = '';
 }
 
 /* ========================
