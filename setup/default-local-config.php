@@ -81,3 +81,7 @@ define('NONCE_SALT',       'SET_THIS');
 require 'salts.inc';
 /**#@-*/
 
+/* disable WordPress file edits from admin console */
+define('DISALLOW_FILE_EDIT', true);
+
+// ----- end of config file -----
