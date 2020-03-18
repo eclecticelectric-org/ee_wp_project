@@ -28,6 +28,11 @@ ini_set('display_errors', 'off');
  */
 $table_prefix  = 'wp_';
 
+/*
+ * define the custom content dir
+ */
+define( 'WP_CONTENT_DIR', dirname( __FILE__ ) . '/wp-content' );
+
 // ===================================================
 // Load database info and local development parameters
 //  ===================================================
@@ -40,11 +45,10 @@ if (file_exists( dirname( __FILE__ ) . '/../production-config.php' ) ) {
 }
 
 /* ========================
- * Custom Content Directory
- * Modify WP_CONTENT_URL in local/production config
+ * Set WP_CONTENT_URL in local/production config
+ * otherwise provide a default value
  * ========================
  */
-define( 'WP_CONTENT_DIR', dirname( __FILE__ ) . '/wp-content' );
 if (!defined('WP_CONTENT_URL')) {
     define( 'WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/wp-content' );
 }
