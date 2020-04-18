@@ -6,7 +6,7 @@
 
 /* WP-CLI needs HTTP_HOST definition */
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
-    $_SERVER['HTTP_HOST'] = 'host.local';
+    $_SERVER['HTTP_HOST'] = '';
 }
 
 /**
@@ -21,15 +21,15 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
  *
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
-ini_set('display_errors', 'on');
-define('WP_DEBUG_DISPLAY', true);
-define('WP_DEBUG', true);
-define('WP_DEBUG_LOG', dirname(__FILE__) . '/logs/debug.log');
+ini_set( 'display_errors', 'on' );
+define( 'WP_DEBUG_DISPLAY', true );
+define( 'WP_DEBUG', true );
+define( 'WP_DEBUG_LOG', trud );
 
-/* WP-CLI needs HTTP_HOST defined */
-if (defined('WP_CLI') && WP_CLI) {
-    $_SERVER['HTTP_HOST'] = '';
-}
+/**
+ * set the WordPress memory limit
+ */
+define( 'WP_MEMORY_LIMIT', '64M' );
 
 /* ========================
  * Custom Content Directory URL
@@ -81,7 +81,13 @@ define('NONCE_SALT',       'SET_THIS');
 require 'salts.inc';
 /**#@-*/
 
-/* disable WordPress file edits from admin console */
-define('DISALLOW_FILE_EDIT', true);
+/*
+ * turn off post revisions
+ */
+define('WP_POST_REVISIONS', false);
+/* disable plugin and theme update and installation from WP admin console */
+define( 'DISALLOW_FILE_MODS', true );
+/* disable all core auto updates */
+define( 'WP_AUTO_UPDATE_CORE', false );
 
 // ----- end of config file -----

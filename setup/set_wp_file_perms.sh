@@ -62,6 +62,9 @@ set_wp_project_perms () {
     # let web server write to logs directory
     chgrp $5 $1/logs
     chmod 770 $1/logs
+
+    # some plugins require read access to vendor directory
+    chgrp -R $5 $1/vendor
 }
 
 set_wp_project_perms "$1" "$2" "$3" "$4" "$5"
