@@ -24,7 +24,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 ini_set( 'display_errors', 'on' );
 define( 'WP_DEBUG_DISPLAY', true );
 define( 'WP_DEBUG', true );
-define( 'WP_DEBUG_LOG', trud );
+define( 'WP_DEBUG_LOG', true );
 
 /**
  * set the WordPress memory limit
