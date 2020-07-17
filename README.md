@@ -95,6 +95,15 @@ Examples:
 
 > *The configuration script removes execute permissions from scripts in the project `setup\` directory to ensure they can't be run a second time with unintended consequences!*
 
+#### Install components using Composer
+
+With the project files in place you can now install WordPress using the package manager:
+
+```
+$ cd PROJECT
+$ composer install
+```
+
 #### Final Configuration Steps
 
 1. Edit the file `PROJECT/local-config.php` and add values for these three database variables
