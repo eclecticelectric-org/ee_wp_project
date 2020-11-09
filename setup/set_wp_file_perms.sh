@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright 2019 Eclectic Electric, Inc.
+# Copyright 2020,2019 Eclectic Electric, Inc.
 # https://www.eclecticelectric.com
 #
 # set_wp_file_perms.sh
@@ -32,16 +32,16 @@ set_wp_project_perms () {
     # lockdown all directory and file permissions
     # execute removed from all scripts, including the project setup scripts
     # ---
-#echo "find/chmod on project"
+    # set permissions across project
     find $1 -type d -exec chmod 750 {} \;
     find $1 -type f -exec chmod 640 {} \;
-#echo "chown on project"
+
+    # chown across project
     chown -R $2.$3 $1
     # fixup project root directory so web server can read as 'other'
     chmod 775 $1
 
-    # set web server permissions for uploads and documentroot 
-#echo "chgrp on project"
+    # set group access to web server across project
     chgrp -R $3 $1
 
     #---
@@ -49,22 +49,35 @@ set_wp_project_perms () {
     # Allow sftp users to write through group membership in WEB_GROUP
     # Allow web server to read through 'other' permissions
     #---
-#echo "chmod on public dirs"
     find $1/public -type d -exec chmod 775 {} \;
-#echo "chmod on public files"
     find $1/public -type f -exec chmod 664 {} \;
 
     # allow web server to read/write/create in uploads
-#echo "chown on uploads"
     chown -R $4 $1/public/wp-content/uploads
-    # provide web server access to config files
-    chgrp $5 $1/local-config.php $1/salts.inc
+    # provide web server access to salts file
+    chgrp $5 $1/salts.inc
     # let web server write to logs directory
     chgrp $5 $1/logs
     chmod 770 $1/logs
 
     # some plugins require read access to vendor directory
     chgrp -R $5 $1/vendor
+
+    # allow web server to create directories in wp-content
+    chown $4 $1/public/wp-content
+
+    # allow web server group read access to config
+    if [ -e $1/local-config.php ]; then
+        chgrp $5 $1/local-config.php
+        chmod 640 $1/local-config.php
+    fi
+    if [ -e $1/production-config.php ]; then
+        chgrp $5 $1/production-config.php
+        chmod 640 $1/production-config.php
+    fi
+   
+    # maintain exec permissions for user in setup directory
+    chmod u+x $1/setup/*sh 
 }
 
 set_wp_project_perms "$1" "$2" "$3" "$4" "$5"
