@@ -11,7 +11,7 @@
 #
 # set_wp_project_perms PROJECT_ROOT WEB_USER WEB_GROUP WEB_SERVER_USER WEB_SERVER_GROUP
 # Parameters:
-# "$1" = PROJECT_ROOT (web server docroot)
+# $1 = PROJECT_ROOT (web server docroot)
 # $2 = WEB_USER (user to own files)
 # $3 = WEB_GROUP (group to own directories)
 # $4 = WEB_SERVER_USER (web server process user)
@@ -33,8 +33,8 @@ set_wp_project_perms () {
     # execute removed from all scripts, including the project setup scripts
     # ---
     # set permissions across project
-    find "$1" -type d -exec chmod 750 {} \;
-    find "$1" -type f -exec chmod 640 {} \;
+    find "$1" -type d -not -perm 775 -print0 | xargs -0 -r chmod 0775
+    find "$1" -type f -not -perm 640 -print0 | xargs -0 -r chmod 0640 
 
     # chown across project
     chown -R $2.$3 "$1"
@@ -49,8 +49,8 @@ set_wp_project_perms () {
     # Allow sftp users to write through group membership in WEB_GROUP
     # Allow web server to read through 'other' permissions
     #---
-    find "$1/public" -type d -exec chmod 775 {} \;
-    find "$1/public" -type f -exec chmod 664 {} \;
+    find "$1/public" -type d -not -perm 775 -print0 | xargs -0 -r chmod 0775
+    find "$1/public" -type f -not -perm 664 -print0 | xargs -0 -r chmod 0664
 
     # allow web server to read/write/create in uploads
     chown -R $4 "$1/public/wp-content/uploads"
@@ -76,8 +76,7 @@ set_wp_project_perms () {
         chmod 640 "$1/production-config.php"
     fi
    
-    # maintain exec permissions for user in setup and utils directory
-    chmod u+x "$1/setup/"*sh
+    # maintain exec permissions for user in setup directory
     chmod u+x "$1/utils/"*sh
 }
 
