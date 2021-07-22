@@ -3,7 +3,7 @@
 # WordPress project setup using Eclectic Electric's
 # WordPress Project Template using Git and Composer
 #
-# Copyright 2019 Eclectic Electric, Inc.
+# Copyright 2019i,2021 Eclectic Electric, Inc.
 # https://www.eclecticelectric.com
 #
 # This program is free software: you can redistribute it and/or modify
@@ -42,7 +42,7 @@ SCRIPT_NAME=$(basename "$0")
 #---
 # process args
 #---
-source $SCRIPT_DIR/parse_args.sh
+source "$SCRIPT_DIR/parse_args.sh"
 
 if [ -n "$SHOW_HELP" ]; then
     usage "$SCRIPT_NAME"; exit $ARG_ERROR
@@ -62,6 +62,7 @@ fi
 WS_BASEDIR=$WS_ROOT/$PROJECT
 # location of configuration files used by this script
 CONFIG_DIR=$WS_BASEDIR/config
+UTILS_DIR=$WS_BASEDIR/utils
 
 # ensure project directory exists
 if [ ! -d "$WS_BASEDIR" ]; then
@@ -98,13 +99,13 @@ fi
 
 echo "Initializng WordPress project $WS_BASEDIR for domain $PROJECT_DOMAIN"
 
-cd $WS_BASEDIR
+cd "$WS_BASEDIR"
 
 # install all packages, including WordPress core
 composer install
 
 # create the WordPress salts
-./setup/wp_local_config.sh
+"$UTILS_DIR/wp_salts.sh"
 
 #---
 # create the local configuration file for WordPress if none exists
@@ -129,7 +130,7 @@ mkdir logs
 # set directory and file permissions
 # ---
 echo "Using sudo to make ownership and permission changes required by web server..."
-sudo $SCRIPT_DIR/set_wp_file_perms.sh "$WS_BASEDIR" "$FS_USER" "$FS_GROUP" "$WS_USER" "$WS_GROUP"
+sudo "$SCRIPT_DIR/set_wp_file_perms.sh" "$WS_BASEDIR" "$FS_USER" "$FS_GROUP" "$WS_USER" "$WS_GROUP"
 
 #---
 # configure the web server virtual host
@@ -141,7 +142,7 @@ setup_virtual_host
 # remove the .git directory from the project clone unless keep option provided
 #---
 if [ -z "$KEEP_GIT" ]; then
-    rm -fr $WS_BASEDIR/.git
+    rm -fr "$WS_BASEDIR/.git"
 else
     # keep the git working space but remove the project remote so git push won't
     # send changes back to the remote repo. User must config a remote.

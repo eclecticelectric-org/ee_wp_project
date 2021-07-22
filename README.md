@@ -166,8 +166,8 @@ Visit your project URL \(http://spacelaunch.com for our example\) and you should
       * plugins /
   * vendor / *(maintained by Composer)*
   * setup / (setup scripts)
-    * `wp_local_config.sh` *(support script)*
     * `ee-wordpress-setup.sh` *(main setup script)*
+  * utils / *(utility and maintenance scripts)*
   * .gitignore
   * .git /
 
