@@ -105,7 +105,7 @@ cd "$WS_BASEDIR"
 composer install
 
 # create the WordPress salts
-"$UTILS_DIR/wp_salts.sh"
+"$UTILS_DIR/wp_salts.sh" > salts.inc
 
 #---
 # create the local configuration file for WordPress if none exists
