@@ -130,7 +130,7 @@ mkdir logs
 # set directory and file permissions
 # ---
 echo "Using sudo to make ownership and permission changes required by web server..."
-sudo "$SCRIPT_DIR/set_wp_file_perms.sh" "$WS_BASEDIR" "$FS_USER" "$FS_GROUP" "$WS_USER" "$WS_GROUP"
+sudo "$UTILS_DIR/set_wp_file_perms.sh" "$WS_BASEDIR" "$FS_USER" "$FS_GROUP" "$WS_USER" "$WS_GROUP"
 
 #---
 # configure the web server virtual host
